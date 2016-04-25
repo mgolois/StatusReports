@@ -8,14 +8,7 @@
     Here is where the screen should show all of the outstading status reports for an individual developer.
 </p>
 <div class="developerHome">
-    <div class="row">
-        <div class="col-sm-6 text-center">
-            Outstanding
-        </div>
-        <div class="col-sm-6 text-center">
-            Completed
-        </div>
-    </div>
+    
     @*<p>
         <a asp-action="Create">Create New</a>
     </p>
@@ -23,7 +16,7 @@
         <a asp-action="History">View Submitted</a>
     </p>*@
 
-    <table class="table table-striped">
+    @*<table class="table table-striped">
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.Status)
@@ -35,7 +28,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @Html.DisplayFor(modelItem => item.ProjectId)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
@@ -44,6 +37,39 @@
                 </td>
             </tr>
         }
-    </table>
+    </table>*@
+    <div class="row">
+        <div class="col-sm-4 outStandingItems">
+            Outstanding
+        </div>
+        <div class="col-sm-4 completedItems">
+            Completed
+        </div>
+        <div class="col-sm-4 otherItems">
+            Other
+        </div>
+        <ul class="media-list col-sm-12">
+            @foreach (var item in Model)
+            {
+                if (item.Status == StatusCode.Draft)
+                {
+                    <a href="@Url.Action("Details","IndividualStatus", new { item.Id })">
+                        <li class="media thinBorder" asp-action="Details" asp-route-id="@item.Id">
+                            <div class="media-left">
+                                <img class="media-object" src="~/images/CareCam.jpg" width="50" height="50" alt="...">
+                            </div>
+                            <div class="media-body">
+                                <p>Item start date</p>
+                                <p>@item.Week.EndingDate</p>
+                            </div>
+                        </li>
+                    </a>
+
+                }
+
+            }
+        </ul>
+        
+    </div>
 
 </div>
