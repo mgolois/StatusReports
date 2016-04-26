@@ -18,9 +18,20 @@ namespace StatusReports.Controllers
         // GET: IndividualStatus
         public IActionResult Index()
         {
-            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week);
+            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Draft);
             return View(statusReportsDbContext.ToList());
         }
+        public IActionResult Submitted()
+        {
+            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Submitted);
+            return View(statusReportsDbContext.ToList());
+        }
+        public IActionResult Approved()
+        {
+            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Approved);
+            return View(statusReportsDbContext.ToList());
+        }
+
 
         // GET: IndividualStatus/Details/5
         public IActionResult Details(int? id)
