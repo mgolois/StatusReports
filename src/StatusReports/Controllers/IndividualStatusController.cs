@@ -40,14 +40,14 @@ namespace StatusReports.Controllers
             {
                 return HttpNotFound();
             }
-
-            IndividualStatusReport individualStatusReport = _context.IndividualStatusReports.Single(m => m.Id == id);
-            if (individualStatusReport == null)
+            var details = _context.IndividualStatusItems.Where(i => i.IndividualStatusReportId == id);
+            //IndividualStatusReport individualStatusReport = _context.IndividualStatusReports.Single(m => m.Id == id);
+            if (details == null)
             {
                 return HttpNotFound();
             }
 
-            return View(individualStatusReport);
+            return View(details.ToList());
         }
 
         // GET: IndividualStatus/Create
