@@ -5,36 +5,40 @@
 }
 
 <div class="developerHome">
+    <div class="text-right">
+        <a class="btn btn-primary" href="@Url.Action("Create","IndividualStatus" )">Create New</a>
+    </div>
+
     @*<button>
-        <a href="@Url.Action("Create","IndividualStatus" )">Create New</a>
-    </button>*@
+
+        </button>*@
     @*
-    <p>
-        <a asp-action="History">View Submitted</a>
-    </p>*@
+        <p>
+            <a asp-action="History">View Submitted</a>
+        </p>*@
 
     @*<table class="table table-striped">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Status)
-            </th>
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model)
-        {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ProjectId)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th></th>
             </tr>
-        }
-    </table>*@
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProjectId)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </table>*@
     <div class="row">
         <div class="col-sm-4 outStandingItems">
             <a href="@Url.Action("Index","IndividualStatus" )">
@@ -67,7 +71,7 @@
                 </a>
             }
         </ul>
-        
+
     </div>
 
 </div>

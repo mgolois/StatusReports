@@ -29,6 +29,13 @@ namespace StatusReports.Models
         
         public virtual ICollection<IndividualStatusReport> Reports { get; set; }
         
-
+        [NotMapped]
+        public string FullName
+        {
+            get
+            {
+                return $"{FirstName} {LastName}";
+            }
+        }
     }
 }

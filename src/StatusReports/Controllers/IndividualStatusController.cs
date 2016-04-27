@@ -53,9 +53,9 @@ namespace StatusReports.Controllers
         // GET: IndividualStatus/Create
         public IActionResult Create()
         {
-            ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "Person");
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Project");
-            ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "Week");
+            ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
+            ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
+            ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");
             return View();
         }
 
