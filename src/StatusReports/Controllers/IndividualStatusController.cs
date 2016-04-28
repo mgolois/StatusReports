@@ -72,9 +72,9 @@ namespace StatusReports.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "Person", individualStatusReport.PersonId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Project", individualStatusReport.ProjectId);
-            ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "Week", individualStatusReport.WeekId);
+            ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "FullName", individualStatusReport.PersonId);
+            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", individualStatusReport.ProjectId);
+            ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "EndingDate", individualStatusReport.WeekId);
             return View(individualStatusReport);
         }
 

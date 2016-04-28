@@ -14,14 +14,15 @@
         </tr>
         @foreach (var item in Model)
         {
-            <tr >
+            <tr @Url.Action("Edit","IndividualStatusItems", new { id= item.IndividualStatusReportId})>
                 <td class="col-sm-6 col-md-4">@item.Date</td>
-                <td class="col-sm-6 col-md-4">@item.Hours </td>
+                <td class="col-sm-6 col-md-4">@item.Hours</td>
                 <td class="col-sm-12 col-md-4">@item.WorkDescription</td>
+                <td><a href="@Url.Action("Edit", "IndividualStatusItems", new { item.Id, item.IndividualStatusReportId })">Edit</a></td>
             </tr>
         }
     </table>
-    
-    
+
+
 </div>
 

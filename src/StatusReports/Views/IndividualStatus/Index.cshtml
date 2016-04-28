@@ -9,27 +9,27 @@
         <a class="btn btn-primary" href="@Url.Action("Create","IndividualStatus" )">Create New</a>
     </div>
 
-    <div class="row">
-        <div class="col-sm-4 outStandingItems">
+    <div class="row ">
+        <div class="col-sm-4 statusTitle ">
             <a href="@Url.Action("Index","IndividualStatus" )">
                 Outstanding
             </a>
         </div>
-        <div class="col-sm-4 completedItems">
+        <div  class="col-sm-4 statusTitle">
             <a href="@Url.Action("Submitted","IndividualStatus" )">
                 Completed
             </a>
         </div>
-        <div class="col-sm-4 otherItems">
+        <div class="col-sm-4 statusTitle">
             <a href="@Url.Action("Approved","IndividualStatus")">
                 Approved
             </a>
         </div>
-        <ul class="media-list col-sm-12">
+        <ul class="media-list col-sm-12 ">
             @foreach (var item in Model)
             {
-                <a href="@Url.Action("Details","IndividualStatus", new { item.Id })">
-                    <li class="media thinBorder" asp-action="Details" asp-route-id="@item.Id">
+                <a href="@Url.Action("Details","IndividualStatusItems", new { item.Id })">
+                    <li class="media thinBorder statusReport" asp-action="Details" asp-route-id="@item.Id">
                         <div class="media-left">
                             <img class="media-object" src="~/images/CareCam.jpg" width="50" height="50" alt="...">
                         </div>

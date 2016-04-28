@@ -43,3 +43,26 @@ textarea {
 .developerHome{
     padding-top: 1em;
 }
+.statusTitle{
+    margin-top: 1em;
+    background-color: white;
+    color: white;
+    border-right: 1px solid black;
+}
+.statusTitle:last-of-type{
+    border-right:none;
+}
+
+a{
+    color:black;
+}
+a:link{
+    color: black;
+}
+a:hover{
+    text-decoration:none;
+}
+
+.statusReport:hover{
+    background-color:blue;
+}
