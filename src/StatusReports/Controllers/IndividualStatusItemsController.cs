@@ -89,7 +89,7 @@ namespace StatusReports.Controllers
             {
                 _context.Update(individualStatusItem);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new {id = individualStatusItem.IndividualStatusReportId });
             }
             ViewData["IndividualStatusReportId"] = new SelectList(_context.IndividualStatusReports, "Id", "StatusReport", individualStatusItem.IndividualStatusReportId);
             return View(individualStatusItem);
