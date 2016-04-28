@@ -66,6 +66,8 @@ namespace StatusReports.Controllers
         {
             if (ModelState.IsValid)
             {
+                //Add the draft status to the report because all new reports should be drafts.
+                individualStatusReport.Status = StatusCode.Draft;
                 _context.IndividualStatusReports.Add(individualStatusReport);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
