@@ -5,6 +5,9 @@
 }
 
 <h2>Details</h2>
+<div>
+    <a class="btn btn-primary" href="@Url.Action("Create", "IndividualStatusItems")">Create</a>
+</div>
 <div class="developerDetails">
     <table class="table table-striped">
         <tr>
@@ -18,9 +21,8 @@
                 <td class="col-sm-6 col-md-4">@item.Date</td>
                 <td class="col-sm-6 col-md-4">@item.Hours</td>
                 <td class="col-sm-12 col-md-4">@item.WorkDescription</td>
-                <td><a href="@Url.Action("Create", "IndividualStatusItems", new { item.Id, item.IndividualStatusReportId })">Create</a></td>
                 <td><a href="@Url.Action("Edit", "IndividualStatusItems", new { item.Id, item.IndividualStatusReportId })">Edit</a></td>
-                <td><a href="@Url.Action("Submit", "IndividualStatusItems", new { item.Id, item.IndividualStatusReportId })">Submit</a></td>
+                <td><a href="@Url.Action("Submit", "IndividualStatusItems")">Submit</a></td>
             </tr>
         }
     </table>

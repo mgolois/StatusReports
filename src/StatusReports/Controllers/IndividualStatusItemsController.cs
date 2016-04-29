@@ -42,7 +42,8 @@ namespace StatusReports.Controllers
         // GET: IndividualStatusItems/Create
         public IActionResult Create()
         {
-            ViewData["IndividualStatusReportId"] = new SelectList(_context.IndividualStatusReports, "Id", "StatusReport");
+            //ViewData["IndividualStatusReportId"] = new SelectList(_context.IndividualStatusReports, "Id", "StatusReport");
+            ViewData["IndividualStatusReportId"] = new SelectList(_context.IndividualStatusItems, "IndividualStatusReportId", "IndividualStatusReportId");
             return View();
         }
 
@@ -94,7 +95,11 @@ namespace StatusReports.Controllers
             ViewData["IndividualStatusReportId"] = new SelectList(_context.IndividualStatusReports, "Id", "StatusReport", individualStatusItem.IndividualStatusReportId);
             return View(individualStatusItem);
         }
-
+        public IActionResult Submit(int? id)
+        {
+            IndividualStatusItem individualStatusItem = _context.IndividualStatusItems.Single(m => m.Id == id);
+            return RedirectToAction("Index", "IndividualStatus");
+        }
         // GET: IndividualStatusItems/Delete/5
         [ActionName("Delete")]
         public IActionResult Delete(int? id)

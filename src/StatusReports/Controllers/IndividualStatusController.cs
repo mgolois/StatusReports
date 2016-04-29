@@ -16,9 +16,9 @@ namespace StatusReports.Controllers
         }
 
         // GET: IndividualStatus
-        public IActionResult Index()
+        public IActionResult Index(int? id)
         {
-            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Draft);
+            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Draft).Where(x => x.Id == id);
             return View(statusReportsDbContext.ToList());
         }
         public IActionResult Submitted()
