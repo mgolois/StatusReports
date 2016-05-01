@@ -1,0 +1,47 @@
+@model IEnumerable<StatusReports.Models.IndividualStatusReport>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="developerHome">
+    <div class="text-right">
+        <a class="btn btn-primary" href="@Url.Action("Create","IndividualStatus" )">Create New</a>
+    </div>
+
+    <div class="row ">
+        <div class="col-sm-4 statusTitle ">
+            <a href="@Url.Action("Index","IndividualStatus" )">
+                Outstanding
+            </a>
+        </div>
+        <div  class="col-sm-4 statusTitle">
+            <a href="@Url.Action("Submitted","IndividualStatus" )">
+                Completed
+            </a>
+        </div>
+        <div class="col-sm-4 statusTitle">
+            <a href="@Url.Action("Approved","IndividualStatus")">
+                Approved
+            </a>
+        </div>
+        <ul class="media-list col-sm-12 ">
+            @foreach (var item in Model)
+            {
+                <a href="@Url.Action("Details","IndividualStatus", new { item.Id })">
+                    <li class="media thinBorder statusReport" asp-action="Details" asp-route-id="@item.Id">
+                        <div class="media-left">
+                            <img class="media-object" src="~/images/CareCam.jpg" width="50" height="50" alt="...">
+                        </div>
+                        <div class="media-body">
+                            <p>Item start date</p>
+                            <p>@item.Week.EndingDate</p>
+                        </div>
+                    </li>
+                </a>
+            }
+        </ul>
+
+    </div>
+
+</div>

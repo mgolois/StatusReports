@@ -1,0 +1,27 @@
+@model IEnumerable<StatusReports.Models.IndividualStatusItem>
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+<div class="developerDetails">
+    <table class="table table-striped">
+        <tr>
+            <th>Day</th>
+            <th>Hours</th>
+            <th>Work Description</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr >
+                <td class="col-sm-6 col-md-4">@item.Date</td>
+                <td class="col-sm-6 col-md-4">@item.Hours </td>
+                <td class="col-sm-12 col-md-4">@item.WorkDescription</td>
+            </tr>
+        }
+    </table>
+    
+    
+</div>
+
