@@ -1,43 +1,16 @@
 @model IEnumerable<StatusReports.Models.IndividualStatusReport>
 
-@{
-    ViewData["Title"] = "Index";
-}
 
-<div class="developerHome">
-    <div class="row">
-        <div class="col-sm-4 outStandingItems">
-            <a href="@Url.Action("Index","IndividualStatus" )">
-                Outstanding
-            </a>
-        </div>
-        <div class="col-sm-4 completedItems">
-            <a href="@Url.Action("Submitted","IndividualStatus" )">
-                Completed
-            </a>
-        </div>
-        <div class="col-sm-4 otherItems">
-            <a href="@Url.Action("Approved","IndividualStatus")">
-                Approved
-            </a>
-        </div>
-        <ul class="media-list col-sm-12">
-            @foreach (var item in Model)
+
+@foreach (var item in Model.Take(8))
             {
-                <a href="@Url.Action("Details","IndividualStatus", new { item.Id })">
-                    <li class="media thinBorder" asp-action="Details" asp-route-id="@item.Id">
-                        <div class="media-left">
-                            <img class="media-object" src="~/images/CareCam.jpg" width="50" height="50" alt="...">
-                        </div>
-                        <div class="media-body">
-                            <p>Item start date</p>
-                            <p>@item.Week.EndingDate</p>
-                        </div>
-                    </li>
-                </a>
-            }
-        </ul>
-
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <a style="color:white" href="@Url.Action("Details","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
+        </div>
+        <div class="panel-body">
+            <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
+            <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
+        </div>
     </div>
-
-</div>
+}

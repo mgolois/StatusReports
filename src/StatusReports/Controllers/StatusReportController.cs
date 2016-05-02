@@ -22,9 +22,10 @@ namespace StatusReports.Controllers
             var draftStatusReports = await _context.IndividualStatusReports.Include(i => i.Person)
                                                                          .Include(i => i.Project).ThenInclude(c=> c.Client)
                                                                          .Include(i => i.Week)
-                                                                         .Where(i => i.Status == StatusCode.Draft).ToListAsync();
+                                                                         .ToListAsync();
             return View(draftStatusReports);
         }
+       
         public IActionResult Submitted()
         {
             var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Submitted);
