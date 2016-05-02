@@ -20,6 +20,7 @@ namespace StatusReports.Models
 
         public StatusCode Status { get; set; }
 
+        public List<IndividualStatusItem> IndividualStatusItems { get; set; }
     }
 
     public enum StatusCode

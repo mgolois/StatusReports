@@ -6,42 +6,74 @@
 
 <div class="developerHome">
     <div class="text-right">
-        <a class="btn btn-primary" href="@Url.Action("Create","IndividualStatus" )">Create New</a>
+        <a class="btn btn-primary" href="@Url.Action("Create","StatusReport" )">New Status Report</a>
     </div>
 
-    <div class="row ">
-        <div class="col-sm-4 statusTitle ">
-            <a href="@Url.Action("Index","IndividualStatus" )">
-                Outstanding
-            </a>
-        </div>
-        <div  class="col-sm-4 statusTitle">
-            <a href="@Url.Action("Submitted","IndividualStatus" )">
-                Completed
-            </a>
-        </div>
-        <div class="col-sm-4 statusTitle">
-            <a href="@Url.Action("Approved","IndividualStatus")">
-                Approved
-            </a>
-        </div>
-        <ul class="media-list col-sm-12 ">
-            @foreach (var item in Model)
-            {
-                <a href="@Url.Action("Details","IndividualStatus", new { item.Id })">
-                    <li class="media thinBorder statusReport" asp-action="Details" asp-route-id="@item.Id">
-                        <div class="media-left">
-                            <img class="media-object" src="~/images/CareCam.jpg" width="50" height="50" alt="...">
-                        </div>
-                        <div class="media-body">
-                            <p>Item start date</p>
-                            <p>@item.Week.EndingDate</p>
-                        </div>
-                    </li>
+    @*<div class="row ">
+            <div class="col-sm-4 statusTitle ">
+                <a href="@Url.Action("Index","IndividualStatus" )">
+                    Outstanding
                 </a>
-            }
+            </div>
+            <div class="col-sm-4 statusTitle">
+                <a href="@Url.Action("Submitted","IndividualStatus" )">
+                    Completed
+                </a>
+            </div>
+            <div class="col-sm-4 statusTitle">
+                <a href="@Url.Action("Approved","IndividualStatus")">
+                    Approved
+                </a>
+            </div>
+        </div>*@
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active">
+                <a href="#outstandingDiv" aria-controls="home" role="tab" data-toggle="tab">Outstanding Reports</a>
+            </li>
+            <li role="presentation">
+                <a href="#completedDiv" aria-controls="profile" role="tab" data-toggle="tab">Completed Reports</a>
+            </li>
+            <li role="presentation">
+                <a href="#approvedReports" aria-controls="messages" role="tab" data-toggle="tab">Approved Reports</a>
+            </li>
         </ul>
 
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="outstandingDiv">
+                <h3 class="text-center"> Outstanding Status Reports</h3>
+
+                @foreach (var item in Model)
+            {
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <a style="color:white" href="@Url.Action("Details","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
+                        </div>
+                        <div class="panel-body">
+                            <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
+                            <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div role="tabpanel" class="tab-pane" id="completedDiv">
+                <h3 class="text-center"> Completed Status Reports</h3>
+
+                <p>under construction</p>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="approvedReports">
+                <h3 class="text-center"> Approved Status Reports</h3>
+
+                <p>under construction</p>
+            </div>
+        </div>
+
     </div>
+
+
+
 
 </div>

@@ -3,6 +3,7 @@ using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using StatusReports.Models;
+using System.Threading.Tasks;
 
 namespace StatusReports.Controllers
 {
@@ -16,10 +17,13 @@ namespace StatusReports.Controllers
         }
 
         // GET: IndividualStatus
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Draft);
-            return View(statusReportsDbContext.ToList());
+            var draftStatusReports = await _context.IndividualStatusReports.Include(i => i.Person)
+                                                                         .Include(i => i.Project).ThenInclude(c=> c.Client)
+                                                                         .Include(i => i.Week)
+                                                                         .Where(i => i.Status == StatusCode.Draft).ToListAsync();
+            return View(draftStatusReports);
         }
         public IActionResult Submitted()
         {

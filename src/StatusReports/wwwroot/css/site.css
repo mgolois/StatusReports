@@ -16,6 +16,11 @@ select,
 textarea {
     max-width: 280px;
 }
+.statusTable input,
+.statusTable select,
+.statusTable textarea {
+    max-width: 100%
+}
 
 /* Carousel */
 .carousel-caption {
@@ -53,7 +58,7 @@ textarea {
     border-right:none;
 }
 
-a{
+/*a{
     color:black;
 }
 a:link{
@@ -61,7 +66,7 @@ a:link{
 }
 a:hover{
     text-decoration:none;
-}
+}*/
 
 .statusReport:hover{
     background-color:blue;
