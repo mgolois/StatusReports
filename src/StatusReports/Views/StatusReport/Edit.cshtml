@@ -14,26 +14,32 @@
         <div class="form-group">
             <label asp-for="PersonId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @{ var people = (IEnumerable<SelectListItem>)ViewData["PersonId"]; }
-                <select asp-for="PersonId" asp-items="people" class="form-control" disabled></select>
-                <input type="hidden" asp-for="PersonId" value="@ViewData["PersonId"]" />
+                <input asp-for="PersonId" value="@Model" class="form-control" disabled />
+                <input type="hidden" asp-for="PersonId" value="@Model.PersonId" />
             </div>
         </div>
         <div class="form-group">
             <label asp-for="ProjectId" class="col-md-2 control-label"></label>
             <div class="col-md-10">
-                @{ var projects = (IEnumerable<SelectListItem>)ViewData["ProjectId"]; }
-                <select asp-for="ProjectId" asp-items="projects" class="form-control" disabled></select>
+                @{ var project = Model.Project.Name; }
+                <input asp-for="ProjectId" asp-item="project" class="form-control" disabled></input>
             </div>
         </div>
         <div class="form-group">
             <label asp-for="WeekId" class="col-md-2 control-label" ></label>
             <div class="col-md-10">
-                @{ var week = (IEnumerable<SelectListItem>)ViewData["WeekId"]; }
-                <select asp-for="WeekId" asp-items="week" class="form-control" disabled></select>
+                @{ var week = ViewData["WeekId"]; }
+                <input asp-for="WeekId" value="@ViewData["WeekId"]" class="form-control" disabled />
             </div>
         </div>
+        <br />
+        <div class="row list-group-item active">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-2 text-center"><strong>Hours</strong></div>
+            <div class="col-sm-8 text-center"><strong>Work Description</strong></div>
+        </div>
         <div class="row list-group-item">
+
             <label class="col-sm-2 control-label">
                 Saturday
                 <input type="hidden" name="IndividualStatusItems[0].Date" value="" />

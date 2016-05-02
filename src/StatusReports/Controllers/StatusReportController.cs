@@ -91,14 +91,15 @@ namespace StatusReports.Controllers
                 return HttpNotFound();
             }
 
-            IndividualStatusReport individualStatusReport = _context.IndividualStatusReports.Single(m => m.Id == id);
+            IndividualStatusReport individualStatusReport = _context.IndividualStatusReports
+                .Include(x => x.Person).Include(x => x.Week).Include(x => x.Project).Single(m => m.Id == id);
             if (individualStatusReport == null)
             {
                 return HttpNotFound();
             }
-            ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
-            ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
-            ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");
+            ViewData["PersonId"] = individualStatusReport.PersonId;
+            ViewData["ProjectId"] = individualStatusReport.ProjectId;
+            ViewData["WeekId"] = individualStatusReport.Week.EndingDate;
             return View(individualStatusReport);
         }
 
