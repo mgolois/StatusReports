@@ -96,9 +96,9 @@ namespace StatusReports.Controllers
             {
                 return HttpNotFound();
             }
-            ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "Person", individualStatusReport.PersonId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Project", individualStatusReport.ProjectId);
-            ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "Week", individualStatusReport.WeekId);
+            ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
+            ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
+            ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");
             return View(individualStatusReport);
         }
 
@@ -113,9 +113,9 @@ namespace StatusReports.Controllers
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "Person", individualStatusReport.PersonId);
-            ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Project", individualStatusReport.ProjectId);
-            ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "Week", individualStatusReport.WeekId);
+            ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
+            ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
+            ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");
             return View(individualStatusReport);
         }
 
