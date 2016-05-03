@@ -6,7 +6,7 @@
             {
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <a style="color:white" href="@Url.Action("Details","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
+            <a style="color:white" href="@Url.Action("Edit","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
         </div>
         <div class="panel-body">
             <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
