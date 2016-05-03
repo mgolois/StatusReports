@@ -67,6 +67,11 @@ namespace StatusReports.Controllers
         public IActionResult Create()
         {
             //TODO: refactor this to pass in the model instead
+            //var report = new ContentModel {
+            //    People = _context.People.ToList(),
+            //    Projects = _context.Projects.ToList(),
+            //    Weeks = _context.Weeks.ToList()
+            //};
             ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
             ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
             ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");

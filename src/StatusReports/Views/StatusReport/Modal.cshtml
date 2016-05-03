@@ -1,0 +1,99 @@
+@model StatusReports.Models.IndividualStatusReport
+
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                <p>One fine body&hellip;</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<h2 class="text-center">Update Status Report</h2>
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="col-md-4 control-label">Name:</label>
+                <div class="col-md-8">
+                    <label class="form-control">@Model.Person.FullName</label>
+                    <input type="hidden" asp-for="PersonId" value="@Model.PersonId" />
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-md-4 control-label">Project:</label>
+                <div class="col-md-8">
+                    <label class="form-control">@Model.Project.Name</label>
+                    <input type="hidden" asp-for="ProjectId" value="@Model.ProjectId" />
+                </div>
+            </div>
+            <div class="form-group col-md-4">
+                <label class="col-md-4 control-label">Week:</label>
+                <div class="col-md-8">
+                    <label class="form-control">@Model.Week.EndingDate.ToString("MM/dd/yyyy")</label>
+                    <input type="hidden" asp-for="WeekId" value="@Model.WeekId" />
+
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="list-group statusTable col-sm-12">
+                <div class="row list-group-item active">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-2 text-center"><strong>Hours</strong></div>
+                    <div class="col-sm-8 text-center"><strong>Work Description</strong></div>
+                </div>
+                @for (int i = 0; i < Model.IndividualStatusItems.Count; i++)
+                {
+                    <div class="row list-group-item">
+
+                        <label class="col-sm-2 control-label">
+                            @Model.IndividualStatusItems[i].FormattedDay
+                            <input type="hidden" name="IndividualStatusItems[@i].Date" value="@Model.IndividualStatusItems[i].Date" />
+                            <input type="hidden" name="IndividualStatusItems[@i].Id" value="@Model.IndividualStatusItems[i].Id" />
+                        </label>
+                        <div class="col-sm-2">
+                            <input placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" />
+                        </div>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="IndividualStatusItems[@i].WorkDescription" placeholder="description">@Model.IndividualStatusItems[i].WorkDescription</textarea>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row form-group">
+            <div class="row text-center">
+                @if (Model.Status == StatusCode.Draft)
+                {
+                    <input type="submit" value="Save As Draft" name="save" class="btn btn-primary" />
+                    <input type="submit" value="Submit To PM" name="completed" class="btn btn-danger" />
+                }
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
