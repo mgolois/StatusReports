@@ -62,7 +62,11 @@
         </div>
         <div class="row form-group">
             <div class="row text-center">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                @if (Model.Status == StatusCode.Draft)
+                {
+                    <input type="submit" value="Save As Draft" name="save" class="btn btn-primary" />
+                    <input type="submit" value="Submit To PM" name="completed" class="btn btn-danger"/>
+                }
             </div>
         </div>
     </div>

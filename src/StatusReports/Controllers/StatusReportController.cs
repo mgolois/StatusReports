@@ -76,21 +76,29 @@ namespace StatusReports.Controllers
         // POST: IndividualStatus/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(IndividualStatusReport individualStatusReport)
+        public IActionResult Create(IndividualStatusReport individualStatusReport, string save,string completed)
         {
             if (ModelState.IsValid)
             {
                 //TODO: refactor to void performance hit by re-getting the date
                 var weekSelected = _context.Weeks.FirstOrDefault(c => c.Id == individualStatusReport.WeekId);
+                
                 for (int i = 0; i < individualStatusReport.IndividualStatusItems.Count; i++)
                 {
                     var daysToSubtract = new TimeSpan(6 - i, 0, 0, 0);
                     individualStatusReport.IndividualStatusItems[i].Date = weekSelected.EndingDate.Subtract(daysToSubtract);
                 }
 
-                //TODO: this status should be pass as argument, 
+                
                 //the user can create a status report and directly submit it to PM
-                individualStatusReport.Status = StatusCode.Draft;
+                if (!string.IsNullOrEmpty(save))
+                {
+                    individualStatusReport.Status = StatusCode.Draft;
+                }
+                if (!string.IsNullOrEmpty(completed))
+                {
+                    individualStatusReport.Status = StatusCode.Submitted;
+                }
 
                 _context.IndividualStatusReports.Add(individualStatusReport);
                 _context.SaveChanges();
@@ -139,13 +147,25 @@ namespace StatusReports.Controllers
         // POST: IndividualStatus/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(IndividualStatusReport individualStatusReport)
+        public IActionResult Edit(IndividualStatusReport individualStatusReport, string save, string completed)
         {
             if (ModelState.IsValid)
             {
+                //Save the changes
+                if (!string.IsNullOrEmpty(save))
+                {
+                    individualStatusReport.Status = StatusCode.Draft;
+                }
+                if (!string.IsNullOrEmpty(completed))
+                {
+                    individualStatusReport.Status = StatusCode.Submitted;
+                }
+
+                //Update the database
                 _context.Update(individualStatusReport);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
+
             }
             ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
             ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");

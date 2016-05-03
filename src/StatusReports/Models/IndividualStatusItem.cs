@@ -10,6 +10,7 @@ namespace StatusReports.Models
     public class IndividualStatusItem
     {
         public int Id { get; set; }
+        [Required]
         public Decimal Hours { get; set; }
 
         [DataType(DataType.MultilineText)]
