@@ -9,12 +9,15 @@
 <form asp-action="Edit">
     <div class="form-horizontal">
         <h4>IndividualStatusReport</h4>
+        <p>model message</p>
+        <p>@Html.Raw(Model.Person.FullName)</p>
         <hr />
         <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
         <div class="form-group">
-            <label asp-for="PersonId" class="col-md-2 control-label"></label>
+            @Html.LabelFor(model => model.PersonId, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                <input asp-for="PersonId" value="@Model" class="form-control" disabled />
+                @Html.TextBoxFor(model => model.PersonId, new { Value = Html.Raw(Model.Person.FullName)})
+                @*<input asp-for="PersonId" asp-item="@Html.Raw(Model.Person.FullName)" class="form-control" disabled />*@
                 <input type="hidden" asp-for="PersonId" value="@Model.PersonId" />
             </div>
         </div>
