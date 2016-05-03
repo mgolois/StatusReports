@@ -4,6 +4,7 @@ using Microsoft.AspNet.Mvc.Rendering;
 using Microsoft.Data.Entity;
 using StatusReports.Models;
 using System.Threading.Tasks;
+using System;
 
 namespace StatusReports.Controllers
 {
@@ -13,28 +14,35 @@ namespace StatusReports.Controllers
 
         public StatusReportController(StatusReportsDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: IndividualStatus
         public async Task<IActionResult> Index()
         {
             var draftStatusReports = await _context.IndividualStatusReports.Include(i => i.Person)
-                                                                         .Include(i => i.Project).ThenInclude(c=> c.Client)
+                                                                         .Include(i => i.Project).ThenInclude(c => c.Client)
                                                                          .Include(i => i.Week)
+                                                                         .Include(i => i.IndividualStatusItems)
                                                                          .ToListAsync();
             return View(draftStatusReports);
         }
-       
+
         public IActionResult Submitted()
         {
-            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Submitted);
-            return View(statusReportsDbContext.ToList());
+            var submittedStatusReports = _context.IndividualStatusReports.Include(i => i.Person)
+                                                                         .Include(i => i.Project)
+                                                                         .Include(i => i.Week)
+                                                                         .Where(i => i.Status == StatusCode.Submitted);
+            return View(submittedStatusReports.ToList());
         }
         public IActionResult Approved()
         {
-            var statusReportsDbContext = _context.IndividualStatusReports.Include(i => i.Person).Include(i => i.Project).Include(i => i.Week).Where(i => i.Status == StatusCode.Approved);
-            return View(statusReportsDbContext.ToList());
+            var approvedStatusReports = _context.IndividualStatusReports.Include(i => i.Person)
+                                                                         .Include(i => i.Project)
+                                                                         .Include(i => i.Week)
+                                                                         .Where(i => i.Status == StatusCode.Approved);
+            return View(approvedStatusReports.ToList());
         }
 
 
@@ -58,6 +66,7 @@ namespace StatusReports.Controllers
         // GET: IndividualStatus/Create
         public IActionResult Create()
         {
+            //TODO: refactor this to pass in the model instead
             ViewData["PersonId"] = new SelectList(_context.People.ToList(), "PersonId", "FullName");
             ViewData["ProjectId"] = new SelectList(_context.Projects.ToList(), "Id", "Name");
             ViewData["WeekId"] = new SelectList(_context.Weeks.ToList(), "Id", "EndingDate");
@@ -71,12 +80,28 @@ namespace StatusReports.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Add the draft status to the report because all new reports should be drafts.
+                //TODO: refactor to void performance hit by re-getting the date
+                var weekSelected = _context.Weeks.FirstOrDefault(c => c.Id == individualStatusReport.WeekId);
+                for (int i = 0; i < individualStatusReport.IndividualStatusItems.Count; i++)
+                {
+                    var daysToSubtract = new TimeSpan(6 - i, 0, 0, 0);
+                    individualStatusReport.IndividualStatusItems[i].Date = weekSelected.EndingDate.Subtract(daysToSubtract);
+                }
+
+                //TODO: this status should be pass as argument, 
+                //the user can create a status report and directly submit it to PM
                 individualStatusReport.Status = StatusCode.Draft;
+
                 _context.IndividualStatusReports.Add(individualStatusReport);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
             }
+            else
+            {
+                //TODO: in case of invalid state, alert the user
+            }
+
+            //TODO: pass in a model instead TBD
             ViewData["PersonId"] = new SelectList(_context.People, "PersonId", "FullName", individualStatusReport.PersonId);
             ViewData["ProjectId"] = new SelectList(_context.Projects, "Id", "Name", individualStatusReport.ProjectId);
             ViewData["WeekId"] = new SelectList(_context.Weeks, "Id", "EndingDate", individualStatusReport.WeekId);
@@ -91,12 +116,20 @@ namespace StatusReports.Controllers
                 return HttpNotFound();
             }
 
-            IndividualStatusReport individualStatusReport = _context.IndividualStatusReports
-                .Include(x => x.Person).Include(x => x.Week).Include(x => x.Project).Single(m => m.Id == id);
+            IndividualStatusReport individualStatusReport = _context.IndividualStatusReports.Include(c => c.IndividualStatusItems)
+                                                                                            .Include(x => x.Person)
+                                                                                            .Include(x => x.Week)
+                                                                                            .Include(x => x.Project)
+                                                                                            .FirstOrDefault(m => m.Id == id);
             if (individualStatusReport == null)
             {
                 return HttpNotFound();
             }
+
+            //TODO: to be revised
+            individualStatusReport.IndividualStatusItems = individualStatusReport.IndividualStatusItems.OrderBy(c => c.Date).ToList();
+
+            //TODO: to be refactored
             ViewData["PersonId"] = individualStatusReport.PersonId;
             ViewData["ProjectId"] = individualStatusReport.ProjectId;
             ViewData["WeekId"] = individualStatusReport.Week.EndingDate;
