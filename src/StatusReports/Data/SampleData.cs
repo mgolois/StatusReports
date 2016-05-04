@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using StatusReports.Models;
 
-namespace StatusReports.Models
+namespace StatusReports.Data
 {
     public static class SampleData
     {

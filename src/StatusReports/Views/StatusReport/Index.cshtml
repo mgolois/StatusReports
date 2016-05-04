@@ -1,4 +1,3 @@
-@model IEnumerable<StatusReports.Models.IndividualStatusReport>
 
 @{
     ViewData["Title"] = "Index";
@@ -28,49 +27,15 @@
         <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="outstandingDiv">
                 <h3 class="text-center"> Outstanding Status Reports</h3>
-                
-                @foreach (var item in Model.Where(x => x.Status == StatusCode.Draft))
-            {
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <a style="color:white" href="@Url.Action("Edit","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
-                        </div>
-                        <div class="panel-body">
-                            <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
-                            <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
-                        </div>
-                    </div>
-                }
+                @await Component.InvokeAsync("StatusReports", StatusCode.Draft)
             </div>
             <div role="tabpanel" class="tab-pane" id="completedDiv">
                 <h3 class="text-center"> Completed Status Reports</h3>
-                @foreach (var item in Model.Where(x => x.Status == StatusCode.Submitted).Take(8))
-            {
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <a style="color:white" href="@Url.Action("Edit","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
-                        </div>
-                        <div class="panel-body">
-                            <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
-                            <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
-                        </div>
-                    </div>
-                }
+                @await Component.InvokeAsync("StatusReports", StatusCode.Submitted)
             </div>
             <div role="tabpanel" class="tab-pane" id="approvedReports">
                 <h3 class="text-center"> Approved Status Reports</h3>
-                @foreach (var item in Model.Where(x => x.Status == StatusCode.Approved).Take(8))
-            {
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <a style="color:white" href="@Url.Action("Edit","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
-                        </div>
-                        <div class="panel-body">
-                            <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
-                            <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
-                        </div>
-                    </div>
-                }
+                @await Component.InvokeAsync("StatusReports", StatusCode.Approved)
             </div>
         </div>
 

@@ -1,9 +1,7 @@
-@model IEnumerable<StatusReports.Models.IndividualStatusReport>
+﻿@model IEnumerable<StatusReports.Models.IndividualStatusReport>
 
-
-
-@foreach (var item in Model.Take(8))
-            {
+@foreach (var item in Model)
+{
     <div class="panel panel-primary">
         <div class="panel-heading">
             <a style="color:white" href="@Url.Action("Edit","StatusReport", new { item.Id })">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>

@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StatusReports.Models;
 using StatusReports.Services;
+using StatusReports.Data;
 
 namespace StatusReports
 {
@@ -57,6 +58,7 @@ namespace StatusReports
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddScoped<IRepository<IndividualStatusReport>, StatusReportRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
