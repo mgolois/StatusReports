@@ -6,7 +6,7 @@
 
 <h2 class="text-center">Add New Status Report</h2>
 
-<form asp-action="Create" id="creatForm">
+<form asp-action="Create" id="createForm">
     <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
     <hr />
  <div class="form-horizontal">
@@ -46,10 +46,9 @@
                         Saturday
                         <input type="hidden" name="IndividualStatusItems[0].Date" value="" />
                     </label>
-                    <div class="col-sm-2 form-group">
-                        <input type="number" name="IndividualStatusItems[0].Hours" class="text-center form-control" 
+                    <div class="col-sm-2 ">
+                        <input type="number" name="mondayHours" class="text-center form-control" 
                                value="0" min="0" max="24" required />
-                        @*<div class="help-block with-errors"></div>*@
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[0].WorkDescription" placeholder="description"></textarea>
@@ -61,7 +60,7 @@
                         <input type="hidden" name="IndividualStatusItems[1].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type="number" name="IndividualStatusItems[1].Hours" class="text-center form-control" min="0" max="24" value="0" />
+                        <input type="number" name="hoursWorked" class="text-center form-control" min="0" max="24" value="0" required/>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[1].WorkDescription" placeholder="description"></textarea>
@@ -73,7 +72,7 @@
                         <input type="hidden" name="IndividualStatusItems[2].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[2].Hours" min="0" max="24" class="text-center form-control" value="0" />
+                        <input type = "number" name="IndividualStatusItems[2].Hours" min="0" max="24" class="text-center form-control" value="0" required/>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[2].WorkDescription" placeholder="description"></textarea>
@@ -86,7 +85,7 @@
                         <input type="hidden" name="IndividualStatusItems[3].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[3].Hours" class="text-center form-control" min="0" max="24" value="0" />
+                        <input type = "number" name="IndividualStatusItems[3].Hours" class="text-center form-control" min="0" max="24" value="0" required/>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[3].WorkDescription" placeholder="description"></textarea>
@@ -112,7 +111,7 @@
                         <input type="hidden" name="IndividualStatusItems[5].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[5].Hours" class="text-center form-control" value="0" />
+                        <input type = "number" name="IndividualStatusItems[5].Hours" class="text-center form-control" value="0" required/>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[5].WorkDescription" placeholder="description"></textarea>

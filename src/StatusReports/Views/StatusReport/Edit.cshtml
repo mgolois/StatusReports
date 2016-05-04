@@ -6,7 +6,7 @@
 
 <h2 class="text-center">Update Status Report</h2>
 <hr />
-<form asp-action="Edit">
+<form asp-action="Edit" id="editForm">
     <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
     <div class="form-horizontal">
         <div class="row">
@@ -51,7 +51,7 @@
                         <input type="hidden" name="IndividualStatusItems[@i].Id" value="@Model.IndividualStatusItems[i].Id" />
                     </label>
                     <div class="col-sm-2">
-                        <input placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" />
+                        <input type="number" placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" min="0" max="10" required/>
                     </div>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[@i].WorkDescription" placeholder="description">@Model.IndividualStatusItems[i].WorkDescription</textarea>
