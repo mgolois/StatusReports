@@ -38,7 +38,7 @@ namespace StatusReports
             Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public static IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -46,12 +46,9 @@ namespace StatusReports
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
-
-            string connection = Configuration["Database:Connection"];
-
             services.AddEntityFramework()
                 .AddSqlServer()
-                .AddDbContext<StatusReportsDbContext>(options => options.UseSqlServer(connection));
+                .AddDbContext<StatusReportsDbContext>();
 
             services.AddMvc();
 
@@ -62,7 +59,7 @@ namespace StatusReports
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, StatusReportsDbContext context)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -101,7 +98,7 @@ namespace StatusReports
             if (env.IsDevelopment())
             {
                 // Only while in development
-                SampleData.Initialize(app.ApplicationServices);
+                SampleData.Initialize(context);
             }
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715

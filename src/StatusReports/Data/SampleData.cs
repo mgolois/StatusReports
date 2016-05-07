@@ -9,10 +9,8 @@ namespace StatusReports.Data
 {
     public static class SampleData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static void Initialize(StatusReportsDbContext context)
         {
-            var context = serviceProvider.GetService<StatusReportsDbContext>();
-
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 

@@ -1,4 +1,4 @@
-@model StatusReports.Models.IndividualStatusReport
+@model StatusReports.ViewModels.StatusReportViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -12,24 +12,21 @@
  <div class="form-horizontal">
      <div class="row">
          <div class="form-group col-md-4">
-             <label asp-for="PersonId" class="col-md-4 control-label"></label>
+             <label asp-for="StatusReport.PersonId" class="col-md-4 control-label"></label>
              <div class="col-md-8">
-                 @{ var people = (IEnumerable<SelectListItem>)ViewData["PersonId"]; }
-                 <select asp-for="PersonId" asp-items="people" class="form-control"></select>
+                 <select asp-for="StatusReport.PersonId" asp-items="@(new SelectList( Model.LookupData.People, "LookupId", "LookupValue", Model.StatusReport?.PersonId ))" class="form-control"></select>
              </div>
          </div>
          <div class="form-group col-md-4">
-             <label asp-for="ProjectId" class="col-md-4 control-label"></label>
+             <label asp-for="StatusReport.ProjectId" class="col-md-4 control-label"></label>
              <div class="col-md-8">
-                 @{ var projects = (IEnumerable<SelectListItem>)ViewData["ProjectId"]; }
-                 <select asp-for="ProjectId" asp-items="projects" class="form-control"></select>
+                 <select asp-for="StatusReport.ProjectId" asp-items="@(new SelectList( Model.LookupData.Projects, "LookupId", "LookupValue", Model.StatusReport?.ProjectId ))" class="form-control"></select>
              </div>
          </div>
          <div class="form-group col-md-4">
-             <label asp-for="WeekId" class="col-md-4 control-label"></label>
+             <label asp-for="StatusReport.WeekId" class="col-md-4 control-label"></label>
              <div class="col-md-8">
-                 @{ var week = (IEnumerable<SelectListItem>)ViewData["WeekId"]; }
-                 <select asp-for="WeekId" asp-items="week" class="form-control"></select>
+                 <select asp-for="StatusReport.WeekId" asp-items="@(new SelectList( Model.LookupData.People, "LookupId", "LookupValue", Model.StatusReport?.WeekId ))" class="form-control"></select>
              </div>
          </div>
          
@@ -44,89 +41,89 @@
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Saturday
-                        <input type="hidden" name="IndividualStatusItems[0].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[0].Date" value="" />
                     </label>
                     <div class="col-sm-2 ">
-                        <input type="number" name="mondayHours" class="text-center form-control" 
+                        <input type="number" name="StatusReport.IndividualStatusItems[0].Hours" class="text-center form-control" 
                                value="0" min="0" max="24" required />
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[0].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[0].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Sunday
-                        <input type="hidden" name="IndividualStatusItems[1].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[1].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type="number" name="hoursWorked" class="text-center form-control" min="0" max="24" value="0" required/>
+                        <input type="number" name="StatusReport.IndividualStatusItems[1].Hours" class="text-center form-control" min="0" max="24" value="0" required/>
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[1].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[1].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Monday
-                        <input type="hidden" name="IndividualStatusItems[2].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[2].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[2].Hours" min="0" max="24" class="text-center form-control" value="0" required/>
+                        <input type = "number" name="StatusReport.IndividualStatusItems[2].Hours" min="0" max="24" class="text-center form-control" value="0" required/>
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[2].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[2].WorkDescription" placeholder="description"></textarea>
                     </div>
 
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Tuesday
-                        <input type="hidden" name="IndividualStatusItems[3].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[3].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[3].Hours" class="text-center form-control" min="0" max="24" value="0" required/>
+                        <input type = "number" name="StatusReport.IndividualStatusItems[3].Hours" class="text-center form-control" min="0" max="24" value="0" required/>
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[3].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[3].WorkDescription" placeholder="description"></textarea>
                     </div>
                     
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Wednesday
-                        <input type="hidden" name="IndividualStatusItems[4].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[4].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[4].Hours" class="text-center form-control" 
+                        <input type = "number" name="StatusReport.IndividualStatusItems[4].Hours" class="text-center form-control" 
                                min="0" max="24" value="0" />
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[4].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[4].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Thursday
-                        <input type="hidden" name="IndividualStatusItems[5].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[5].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[5].Hours" class="text-center form-control" value="0" required/>
+                        <input type = "number" name="StatusReport.IndividualStatusItems[5].Hours" class="text-center form-control" value="0" required/>
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[5].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[5].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
                 <div class="row list-group-item">
                     <label class="col-sm-2 control-label">
                         Friday
-                        <input type="hidden" name="IndividualStatusItems[6].Date" value="" />
+                        <input type="hidden" name="StatusReport.IndividualStatusItems[6].Date" value="" />
                     </label>
                     <div class="col-sm-2">
-                        <input type = "number" name="IndividualStatusItems[6].Hours" class="text-center form-control" value="0" />
+                        <input type = "number" name="StatusReport.IndividualStatusItems[6].Hours" class="text-center form-control" value="0" />
                     </div>
                     <div class="col-sm-8">
-                        <textarea class="form-control" name="IndividualStatusItems[6].WorkDescription" placeholder="description"></textarea>
+                        <textarea class="form-control" name="StatusReport.IndividualStatusItems[6].WorkDescription" placeholder="description"></textarea>
                         <input name="lostSon" type="hidden" value="hiddenTruth" />
                     </div>
                 </div>

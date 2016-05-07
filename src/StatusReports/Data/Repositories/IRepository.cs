@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Entity;
 using StatusReports.Models;
+using StatusReports.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace StatusReports.Data
         void Update(T obj);
         Task<T> UpdateAndSaveAsync(T obj);
 
-        Task<LookupData> GetLookupData();
+        Task<LookupModel> GetLookupDataAsync();
 
     }
   

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Entity;
 using StatusReports.Models;
+using StatusReports.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,15 +46,15 @@ namespace StatusReports.Data
                                                          .Include(x => x.Project).FirstOrDefaultAsync(s => s.Id == id);
         }
 
-        public async Task<LookupData> GetLookupData()
+        public async Task<LookupModel> GetLookupDataAsync()
         {
-            var persontask = _context.People.ToListAsync();
-            var projectTask = _context.Projects.ToListAsync();
-            var weekTask = _context.Weeks.ToListAsync();
+            var persontask = _context.People.Select(c=> new LookupItem { LookupId = c.PersonId, LookupValue = c.FullName }).ToListAsync();
+            var projectTask = _context.Projects.Select(c => new LookupItem { LookupId = c.Id, LookupValue = c.Name }).ToListAsync();
+            var weekTask = _context.Weeks.Select(c => new LookupItem { LookupId = c.Id, LookupValue = c.EndingDate.ToString("MM/dd/yyy") }).ToListAsync();
 
             await Task.WhenAll(persontask, projectTask, weekTask);
 
-            return new LookupData
+            return new LookupModel
             {
                 People = persontask.Result,
                 Projects = projectTask.Result,

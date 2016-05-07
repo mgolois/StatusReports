@@ -34,6 +34,7 @@
             </div>
         </div>
         <br />
+     \
         <div class="row">
             <div class="list-group statusTable col-sm-12">
                 <div class="row list-group-item active">
@@ -51,8 +52,10 @@
                         <input type="hidden" name="IndividualStatusItems[@i].Id" value="@Model.IndividualStatusItems[i].Id" />
                     </label>
                     <div class="col-sm-2">
+                        <label class="visible-sm">Hours</label>
                         <input type="number" placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" min="0" max="10" required/>
                     </div>
+                    <label class="visible-sm">Description</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" name="IndividualStatusItems[@i].WorkDescription" placeholder="description">@Model.IndividualStatusItems[i].WorkDescription</textarea>
                     </div>

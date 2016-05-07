@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using StatusReports.Data;
 using System.Collections.Generic;
+using StatusReports.ViewModels;
 
 namespace StatusReports.Controllers
 {
@@ -28,45 +29,38 @@ namespace StatusReports.Controllers
         // GET: IndividualStatus/Create
         public async Task<IActionResult> Create()
         {
-            //TODO: refactor this to pass in the model instead
-
-            var lookupData = await statusReportRepo.GetLookupData();
-            ViewData["PersonId"] = new SelectList(lookupData.People, "PersonId", "FullName");
-            ViewData["ProjectId"] = new SelectList(lookupData.Projects, "Id", "Name");
-            ViewData["WeekId"] = new SelectList(lookupData.Weeks, "Id", "EndingDate");
-
-            return View();
+            var lookupData = await statusReportRepo.GetLookupDataAsync();
+            return View(new StatusReportViewModel(null, lookupData));
         }
 
         // POST: IndividualStatus/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(IndividualStatusReport individualStatusReport, string save, string completed)
+        public async Task<IActionResult> Create(StatusReportViewModel StatusReportVM, string save, string completed)
         {
-            var lookupData = await statusReportRepo.GetLookupData();
+            var lookupData = await statusReportRepo.GetLookupDataAsync();
             if (ModelState.IsValid)
             {
                 //TODO: refactor to void performance hit by re-getting the date
-                var weekSelected = lookupData.Weeks.FirstOrDefault(c => c.Id == individualStatusReport.WeekId);
+                var weekSelected = DateTime.Parse(lookupData.Weeks.FirstOrDefault(c => c.LookupId == StatusReportVM.StatusReport.WeekId).LookupValue);
 
-                for (int i = 0; i < individualStatusReport.IndividualStatusItems.Count; i++)
+                for (int i = 0; i < StatusReportVM.StatusReport.IndividualStatusItems.Count; i++)
                 {
                     var daysToSubtract = new TimeSpan(6 - i, 0, 0, 0);
-                    individualStatusReport.IndividualStatusItems[i].Date = weekSelected.EndingDate.Subtract(daysToSubtract);
+                    StatusReportVM.StatusReport.IndividualStatusItems[i].Date = weekSelected.Subtract(daysToSubtract);
                 }
-
 
                 //the user can create a status report and directly submit it to PM
                 if (!string.IsNullOrEmpty(save))
                 {
-                    individualStatusReport.Status = StatusCode.Draft;
+                    StatusReportVM.StatusReport.Status = StatusCode.Draft;
                 }
                 if (!string.IsNullOrEmpty(completed))
                 {
-                    individualStatusReport.Status = StatusCode.Submitted;
+                    StatusReportVM.StatusReport.Status = StatusCode.Submitted;
                 }
 
-                await statusReportRepo.AddAndSaveAsync(individualStatusReport);
+                await statusReportRepo.AddAndSaveAsync(StatusReportVM.StatusReport);
                 return RedirectToAction("Index");
             }
             else
@@ -74,11 +68,7 @@ namespace StatusReports.Controllers
                 //TODO: in case of invalid state, alert the user
             }
 
-            //TODO: pass in a model instead TBD
-            ViewData["PersonId"] = new SelectList(lookupData.People, "PersonId", "FullName", individualStatusReport.PersonId);
-            ViewData["ProjectId"] = new SelectList(lookupData.Projects, "Id", "Name", individualStatusReport.ProjectId);
-            ViewData["WeekId"] = new SelectList(lookupData.Weeks, "Id", "EndingDate", individualStatusReport.WeekId);
-            return View(individualStatusReport);
+            return View(new StatusReportViewModel(StatusReportVM.StatusReport, lookupData));
         }
 
         // GET: IndividualStatus/Edit/5
