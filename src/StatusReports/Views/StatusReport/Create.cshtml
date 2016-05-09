@@ -4,11 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h2 class="text-center">Add New Status Report</h2>
+@*<h2 class="text-center">Add New Status Report</h2>*@
 
 <form asp-action="Create" id="createForm">
     <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
-    <hr />
+    @*<hr />*@
  <div class="form-horizontal">
      <div class="row">
          <div class="form-group col-md-4">
@@ -31,14 +31,14 @@
          </div>
          
      </div>
-        <div class="row">
-            <div class="list-group statusTable col-sm-12">
-                <div class="row list-group-item active">
+        <div class="col-sm-12">
+            <div class="list-group statusTable">
+                <div class="col-sm-12 list-group-item active">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-2 text-center"><strong>Hours</strong></div>
                     <div class="col-sm-8 text-center"><strong>Work Description</strong></div>
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Saturday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[0].Date" value="" />
@@ -51,7 +51,7 @@
                         <textarea class="form-control" name="StatusReport.IndividualStatusItems[0].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Sunday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[1].Date" value="" />
@@ -63,7 +63,7 @@
                         <textarea class="form-control" name="StatusReport.IndividualStatusItems[1].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Monday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[2].Date" value="" />
@@ -76,7 +76,7 @@
                     </div>
 
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Tuesday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[3].Date" value="" />
@@ -89,7 +89,7 @@
                     </div>
                     
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Wednesday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[4].Date" value="" />
@@ -102,7 +102,7 @@
                         <textarea class="form-control" name="StatusReport.IndividualStatusItems[4].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Thursday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[5].Date" value="" />
@@ -114,7 +114,7 @@
                         <textarea class="form-control" name="StatusReport.IndividualStatusItems[5].WorkDescription" placeholder="description"></textarea>
                     </div>
                 </div>
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
                     <label class="col-sm-2 control-label">
                         Friday
                         <input type="hidden" name="StatusReport.IndividualStatusItems[6].Date" value="" />
@@ -139,9 +139,9 @@
     </div>
 </form>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

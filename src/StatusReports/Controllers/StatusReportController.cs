@@ -21,9 +21,10 @@ namespace StatusReports.Controllers
         }
 
         // GET: IndividualStatus
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var lookupData = await statusReportRepo.GetLookupDataAsync();
+            return View(new StatusReportViewModel(null, lookupData));
         }
 
         // GET: IndividualStatus/Create

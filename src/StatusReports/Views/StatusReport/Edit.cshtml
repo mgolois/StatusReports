@@ -4,8 +4,8 @@
     ViewData["Title"] = "Update";
 }
 
-<h2 class="text-center">Update Status Report</h2>
-<hr />
+@*<h2 class="text-center">Update Status Report</h2>
+<hr />*@
 <form asp-action="Edit" id="editForm">
     <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
     <div class="form-horizontal">
@@ -35,16 +35,16 @@
         </div>
         <br />
      \
-        <div class="row">
-            <div class="list-group statusTable col-sm-12">
-                <div class="row list-group-item active">
+        <div class="col-sm-12">
+            <div class="list-group statusTable">
+                <div class="col-sm-12 list-group-item active">
                     <div class="col-sm-2"></div>
                     <div class="col-sm-2 text-center"><strong>Hours</strong></div>
                     <div class="col-sm-8 text-center"><strong>Work Description</strong></div>
                 </div>
                 @for (int i = 0; i < Model.IndividualStatusItems.Count; i++)
                 {
-                <div class="row list-group-item">
+                <div class="col-sm-12 list-group-item">
 
                     <label class="col-sm-2 control-label">
                         @Model.IndividualStatusItems[i].FormattedDay
@@ -66,18 +66,18 @@
         <div class="row form-group">
             <div class="row text-center">
                 @if (Model.Status == StatusCode.Draft)
-                {
+                {<!--TODO--> }
                     <input type="submit" value="Save As Draft" name="save" class="btn btn-primary" />
                     <input type="submit" value="Submit To PM" name="completed" class="btn btn-success"/>
-                }
+                
             </div>
         </div>
     </div>
 </form>
 
-<div>
+@*<div>
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
 
 @section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
