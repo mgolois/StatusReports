@@ -16,6 +16,6 @@ namespace StatusReports.Models
 
         public int ClientId { get; set; }
         public Client Client { get; set; }
-
+        public List<IndividualStatusReport> IndividualStatusReports { get; set; }
     }
 }
