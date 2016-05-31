@@ -4,25 +4,11 @@
 {
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <a data-target="#modal@(item.Id)" data-toggle="modal" style="color:white; cursor:pointer">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
+            <a href="@Url.Action("Edit","StatusReport", new { id=item.Id})" style="color:white; cursor:pointer">@($"{item.Project.Client.Name} - {item.Project.Name}")</a>
         </div>
         <div class="panel-body">
             <p>Week Ending Date: @item.Week.EndingDate.ToString("MM/dd/yyyy")</p>
             <p>Total Hours: @item.IndividualStatusItems?.Sum(c => c.Hours).ToString("#.##")</p>
-        </div>
-    </div>
-    <!-- Update Status Report modal -->
-    <div class="modal fade" id="modal@(item.Id)" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title text-center" id="myModalLabel">Update New Status Report</h3>
-                </div>
-                <div class="modal-body">
-                    @await Html.PartialAsync("Edit", item)
-                </div>
-            </div>
         </div>
     </div>
 }

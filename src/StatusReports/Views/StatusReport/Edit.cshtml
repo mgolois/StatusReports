@@ -4,8 +4,8 @@
     ViewData["Title"] = "Update";
 }
 
-@*<h2 class="text-center">Update Status Report</h2>
-<hr />*@
+<h2 class="text-center">Update Status Report</h2>
+<hr />
 <form asp-action="Edit" id="editForm">
     <div asp-validation-summary="ValidationSummary.ModelOnly" class="text-danger"></div>
     <div class="form-horizontal">
@@ -53,7 +53,7 @@
                     </label>
                     <div class="col-sm-2">
                         <label class="visible-sm">Hours</label>
-                        <input type="number" placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" min="0" max="10" required/>
+                        <input type="number" disabled placeholder="hours" name="IndividualStatusItems[@i].Hours" value="@Model.IndividualStatusItems[i].Hours" class="text-center form-control" min="0" max="10" required/>
                     </div>
                     <label class="visible-sm">Description</label>
                     <div class="col-sm-8">

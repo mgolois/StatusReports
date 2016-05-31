@@ -5,7 +5,7 @@
 
 <div class="developerHome">
     <div class="text-right">
-        <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#createModal">New Status Report</button>
+        <a class="btn btn-primary"   href="@Url.Action("Create","StatusReport" )">New Status Report</a>
     </div>
 
     <div>
@@ -40,22 +40,4 @@
         </div>
 
     </div>
-
-    <!-- Create New Status Report modal -->
-
-    <div class="modal fade" tabindex="-1" role="dialog" id="createModal">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title text-center" id="myModalLabel">Add New Status Report</h3>
-                </div>
-                <div class="modal-body">
-                    @await Html.PartialAsync("Create", Model )
-                </div>
-            </div>
-        </div>
-    </div>
-
-
 </div>
