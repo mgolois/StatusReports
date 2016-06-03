@@ -1,0 +1,52 @@
+@model IEnumerable<StatusReports.Models.Client>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<br />
+@*<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+
+
+    @*<tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>*@
+    
+@*@await Component.InvokeAsync("Clients");*@
+
+
+  
+
+
+@foreach (var item in Model)
+{
+    <div>
+        <div class="col-md-8">
+
+            <img alt="" src="@Html.DisplayFor(modelItem => item.ImageUrl)" style="max-width:12%;max-height:12%" />
+            @Html.DisplayFor(modelItem => item.Projects);
+
+            <span>
+                @*@ViewBag.projects.Name;*@
+            </span>
+        </div>
+        @*<span class="col-md-8">@Html.DisplayFor(modelItem => item.Name)</span>*@
+    </div>
+    <br />
+}
+<br />
+<br />
+
+<br />
+
+

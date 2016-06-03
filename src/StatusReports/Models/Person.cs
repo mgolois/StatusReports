@@ -29,7 +29,7 @@ namespace StatusReports.Models
         
         public virtual ICollection<IndividualStatusReport> Reports { get; set; }
 
-        public List<IndividualStatusReport> IndividualStatusReports { get; set; }
+    //    public List<IndividualStatusReport> IndividualStatusReports { get; set; }
 
         [NotMapped]
         public string FullName

@@ -16,6 +16,7 @@ namespace StatusReports.ViewModels
         public List<LookupItem> People { get; set; } 
         public List<LookupItem> Weeks { get; set; }
         public List<LookupItem> Projects { get; set; }
+        public List<LookupItem> Clients { get; set; }
     }
 
     public class LookupItem

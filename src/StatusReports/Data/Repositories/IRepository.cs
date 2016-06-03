@@ -20,6 +20,7 @@ namespace StatusReports.Data
 
         Task<LookupModel> GetLookupDataAsync();
 
+        IQueryable<Client> GetClients();
     }
   
 }

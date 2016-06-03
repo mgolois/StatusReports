@@ -46,19 +46,24 @@ namespace StatusReports.Data
                                                          .Include(x => x.Project).FirstOrDefaultAsync(s => s.Id == id);
         }
 
+       
+
         public async Task<LookupModel> GetLookupDataAsync()
         {
             var persontask = _context.People.Select(c=> new LookupItem { LookupId = c.PersonId, LookupValue = c.FullName }).ToListAsync();
             var projectTask = _context.Projects.Select(c => new LookupItem { LookupId = c.Id, LookupValue = c.Name }).ToListAsync();
             var weekTask = _context.Weeks.Select(c => new LookupItem { LookupId = c.Id, LookupValue = c.EndingDate.ToString("MM/dd/yyy") }).ToListAsync();
+            var ClientTask = _context.Clients.Select(c => new LookupItem { LookupId = c.Id, LookupValue = c.Name }).ToListAsync();
 
-            await Task.WhenAll(persontask, projectTask, weekTask);
+
+            await Task.WhenAll(persontask, projectTask, weekTask,ClientTask);
 
             return new LookupModel
             {
                 People = persontask.Result,
                 Projects = projectTask.Result,
-                Weeks = weekTask.Result
+                Weeks = weekTask.Result,
+                Clients = ClientTask.Result
             };
         }
 
@@ -79,6 +84,9 @@ namespace StatusReports.Data
             return statusReport;
         }
 
-
+        public IQueryable<Client> GetClients()
+        {
+            return _context.Clients.AsQueryable();
+        }
     }
 }
